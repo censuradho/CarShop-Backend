@@ -1,0 +1,82 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Carshop API Doc",
+    "description": "this is an api rent",
+    "version": "1.0.0",
+    "contact": {
+      "email": "gustavoleiteoliveira800@gmail.com"
+    }
+  },
+  "paths": {
+    "/category": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Create an category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type":  "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "exemple": {
+                  "name": "Porsche",
+                  "description": "Sporting car"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "CATEGORY_ALREAD_EXIST"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Category"],
+        "summary": "List the categories",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
