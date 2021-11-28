@@ -77,6 +77,30 @@
           }
         }
       }
+    },
+    "/category/import": {
+      "post": {
+        "tags": ["Category import"],
+        "summary": "creates a category based on a csv file",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ import { Category } from '.prisma/client'
 import csvParse from 'csv-parse'
 
 import fs from 'fs'
+import { unlinkAsync } from 'utils/unLinkAsync'
 
 type ImportCategoryRow = Pick<Category, 'description' | 'name'>
 
@@ -27,7 +28,10 @@ export class ImportCategoryService {
 					description
 				})
 			})
-				.on('end', () => resolve(categories))
+				.on('end', () => {
+					// fs.promises.unlink(file.path)
+					resolve(categories)
+				})
 				.on('error', err => reject(err))
 			
 		})
@@ -35,15 +39,6 @@ export class ImportCategoryService {
 	async importCategory (file: Express.Multer.File) {
 		const categories = await this.loadCategory(file)
 		
-		const categoryExist = await prisma.category.findFirst({
-			where: {
-				name: {
-					in: categories.map(category => category.name)
-				}		
-			}
-		})
-
-		if (categoryExist) throw new Error('ERROR_CATEGORY_ALREADY_EXIST')
 
 		const queries = categories.map(category => 
 			prisma.category.create({ 

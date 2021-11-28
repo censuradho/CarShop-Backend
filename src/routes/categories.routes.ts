@@ -1,4 +1,4 @@
-import{ request, Router } from 'express'
+import{ Router } from 'express'
 
 import { categoryController } from 'modules/cars/useCases/category'
 
@@ -8,7 +8,6 @@ const categoriesRoutes = Router()
 categoriesRoutes
 	.post('/', (request, response) => categoryController.store(request, response))
 	.get('/', (request, response) => categoryController.index(request, response))
- 
 
 categoriesRoutes.use(importCategoryRoutes)
 
